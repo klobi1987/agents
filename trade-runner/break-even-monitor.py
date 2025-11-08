@@ -324,8 +324,9 @@ def check_and_move_to_breakeven(api_key: str, api_secret: str) -> List[Dict]:
 
 try:
     # Get API credentials from environment variables
-    api_key = $env.BYBIT_API_KEY
-    api_secret = $env.BYBIT_API_SECRET
+    # Supports both UPPERCASE and lowercase variable names
+    api_key = $env.BYBIT_API_KEY or $env.bybit_api_key
+    api_secret = $env.BYBIT_API_SECRET or $env.bybit_api_secret
 
     # Run break even check
     results = check_and_move_to_breakeven(api_key, api_secret)

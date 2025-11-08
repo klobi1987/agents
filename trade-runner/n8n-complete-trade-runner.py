@@ -594,11 +594,30 @@ def execute_trade(trade_signal: Dict) -> Dict:
 # n8n CODE NODE ENTRY POINT
 # ═══════════════════════════════════════════════════════════════
 
-# Get input from previous n8n node
-input_data = $input.item.json
+try:
+    # Get input from previous n8n node
+    input_data = $input.item.json
 
-# Execute trade
-result = execute_trade(input_data)
+    # Add API credentials from environment variables
+    # Note: Adjust variable names if yours are different
+    input_data["api_key"] = $env.BYBIT_API_KEY or $env.bybit_api_key
+    input_data["api_secret"] = $env.BYBIT_API_SECRET or $env.bybit_api_secret
 
-# Return result to next node
-return [{"json": result}]
+    # Execute trade
+    result = execute_trade(input_data)
+
+    # Return result to next node
+    return [{"json": result}]
+
+except Exception as e:
+    print(f"❌ FATAL ERROR: {str(e)}")
+    import traceback
+    traceback.print_exc()
+
+    return [{
+        "json": {
+            "status": "error",
+            "error": str(e),
+            "traceback": traceback.format_exc()
+        }
+    }]
