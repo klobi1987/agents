@@ -458,6 +458,42 @@ Za budući razvoj dashboard-a i trading UI-ja:
 
 ---
 
+## 🤖 AI Development Agents
+
+### Claude Code Sub-Agents
+
+Za AI-assisted development i code automation:
+
+**[A List of Claude Code Agents](https://github.com/hesreallyhim/a-list-of-claude-code-agents)** - Kolekcija specijalizovanih AI agenata
+
+**Individualni Agenti:**
+- **backend-typescript-architect** - Bun runtime, API design, skalabilna arhitektura
+- **python-backend-engineer** - FastAPI, Django, async programming
+- **react-coder** - React 19 komponente, maintainable code
+- **senior-code-reviewer** - Code review, security vulnerabilities, performance
+- **ts-coder** - TypeScript best practices
+- **ui-engineer** - Accessible frontend komponente
+
+**Agent Frameworks:**
+- **Code By Agents** - Orchestration framework za koordinaciju Claude agenata
+- **awesome-claude-agents** - Dodatna kolekcija Claude Code agenata
+- **EquilateralAgents Open Core** - 22 self-learning agenata sa memory tracking
+- **Claude Code Subagents Collection** - Ekstenzivna kolekcija specijalizovanih agenata
+
+**Potencijalne use cases za ovaj projekat:**
+- Automatski code review Python/JavaScript trade runner koda
+- Refactoring i optimizacija Bybit API integracije
+- Generisanje test suite-ova za trading logiku
+- Architecture review za scaling sistema
+- Frontend development sa React-based monitoring dashboard
+
+**Community Resources:**
+- 1,000+ stars, aktivna community
+- Open za contributions i PR-ove
+- Passively maintained, ali redovno ažurirano
+
+---
+
 ## 🤝 Contributing
 
 Slobodno submit-uj improvements via Pull Request!
