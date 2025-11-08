@@ -436,6 +436,28 @@ Risk taken: $0 (after TP1)
 
 ---
 
+## 🎨 Design Resources
+
+### Frontend UI Components
+
+Za budući razvoj dashboard-a i trading UI-ja:
+
+**[Kibo UI](https://github.com/shadcnblocks/kibo)** - Component library za shadcn/ui
+- Composable, accessible komponente
+- Dizajnirane za kompleksne aplikacije
+- Kompatibilne sa shadcn/ui CSS variables
+- MIT License - free i open source
+- Dokumentacija: [www.kibo-ui.com](https://www.kibo-ui.com/)
+
+**Potencijalne use cases:**
+- Trading dashboard sa real-time pozicijama
+- Order management interface
+- Performance metrics i charts
+- Position monitoring UI
+- Trade execution panel
+
+---
+
 ## 🤝 Contributing
 
 Slobodno submit-uj improvements via Pull Request!
