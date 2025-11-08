@@ -7,7 +7,6 @@ Stavlja se DIREKTNO nakon "IF: Trade Selected?" node-a.
 ═══════════════════════════════════════════════════════════════
 """
 
-import os
 import hashlib
 import hmac
 import time
@@ -18,6 +17,10 @@ from typing import Dict, List, Any, Optional
 # ═══════════════════════════════════════════════════════════════
 # KONFIGURACIJA
 # ═══════════════════════════════════════════════════════════════
+
+# 🔑 STAVI SVOJE BYBIT API KREDENCIJALE OVDJE:
+BYBIT_API_KEY = "tvoj_api_key_ovdje"
+BYBIT_API_SECRET = "tvoj_api_secret_ovdje"
 
 BYBIT_API_URL = "https://api.bybit.com"
 MAX_LONG_POSITIONS = 5
@@ -375,9 +378,9 @@ try:
         "position_idx": 0,
         "skip_leverage": True,  # Promijeniti na False ako želiš da postavlja leverage
 
-        # API credentials from environment
-        "api_key": os.getenv('BYBIT_API_KEY') or os.getenv('bybit_api_key'),
-        "api_secret": os.getenv('BYBIT_API_SECRET') or os.getenv('bybit_api_secret')
+        # API credentials (iz varijabli na vrhu fajla)
+        "api_key": BYBIT_API_KEY,
+        "api_secret": BYBIT_API_SECRET
     }
 
     print("✅ Transformation complete!")
