@@ -356,8 +356,8 @@ def execute_trade(trade_signal: Dict) -> Dict:
 # ═══════════════════════════════════════════════════════════════
 
 try:
-    # Get input from Trade Selector
-    selector_output = $input.item.json
+    # Get input from Trade Selector (n8n Python syntax)
+    selector_output = items[0]['json']
 
     print("\n🔄 TRANSFORMING TRADE SELECTOR OUTPUT...")
     print(f"   Input: {selector_output.get('symbol')} {selector_output.get('side')}")
