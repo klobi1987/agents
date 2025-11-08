@@ -1,0 +1,84 @@
+{
+  "name": "Bybit Trade Runner",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "trade",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trade-runner",
+      "name": "Webhook Trade",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "bybit-trade-runner"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "python",
+        "pythonCode": "# Copy the complete code from:\n# https://github.com/klobi1987/agents/blob/claude/awesome-claude-skills-011CUvUCRxHcdcpZoJMTEqwu/trade-runner/n8n-complete-trade-runner.py\n\n# Or paste the full code here\n\ntry:\n    input_data = $input.item.json\n    \n    # Add API credentials from environment variables\n    input_data[\"api_key\"] = $env.BYBIT_API_KEY or $env.bybit_api_key\n    input_data[\"api_secret\"] = $env.BYBIT_API_SECRET or $env.bybit_api_secret\n    \n    # Execute trade\n    result = execute_trade(input_data)\n    \n    return [{\"json\": result}]\n    \nexcept Exception as e:\n    print(f\"❌ FATAL ERROR: {str(e)}\")\n    import traceback\n    traceback.print_exc()\n    \n    return [{\n        \"json\": {\n            \"status\": \"error\",\n            \"error\": str(e),\n            \"traceback\": traceback.format_exc()\n        }\n    }]"
+      },
+      "id": "python-trade-runner",
+      "name": "Trade Runner",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}"
+      },
+      "id": "respond-webhook",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        680,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook Trade": {
+      "main": [
+        [
+          {
+            "node": "Trade Runner",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trade Runner": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-11-08T14:00:00.000Z",
+  "versionId": "1"
+}
