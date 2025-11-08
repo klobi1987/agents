@@ -360,16 +360,15 @@ async function executeTrade(tradeSignal) {
         console.log(`   Input: ${selectorOutput.symbol} ${selectorOutput.side}`);
 
         // Transform Trade Selector output → Trade Runner format
-        const bybitSide = selectorOutput.side === "BUY" ? "Buy" : "Sell";
-
+        // Side je već "Buy" ili "Sell" format - ne treba transformacija
         const tradePayload = {
-            symbol: selectorOutput.bybit_symbol || selectorOutput.symbol,
-            side: bybitSide,
-            qty: selectorOutput.quantity.toString(),
-            leverage: selectorOutput.leverage,
-            stop_loss: selectorOutput.stop_loss.toString(),
-            take_profits: selectorOutput.take_profits || [],
-            position_idx: 0,
+            symbol: selectorOutput.symbol,
+            side: selectorOutput.side,  // Već je "Buy" ili "Sell"
+            qty: selectorOutput.qty,    // Već je string
+            leverage: parseInt(selectorOutput.leverage),
+            stop_loss: selectorOutput.stopLoss,  // camelCase!
+            take_profits: selectorOutput.takeProfits || [],
+            position_idx: selectorOutput.positionIdx || 0,
             skip_leverage: true  // Promijeniti na false ako želiš da postavlja leverage
         };
 
