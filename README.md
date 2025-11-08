@@ -19,6 +19,8 @@ They are specialized folders containing instructions, scripts, and resources.
 
 ## 🚀 Quick Start
 
+> **🤖 Advanced Setup:** Check out [CLAUDE-SKILLS-SETUP.md](./CLAUDE-SKILLS-SETUP.md) for globally installed AI development agents (Python, TypeScript, React, Code Review, etc.)
+
 ### Claude Code
 
 ```bash
