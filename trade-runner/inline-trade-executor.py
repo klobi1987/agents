@@ -7,6 +7,7 @@ Stavlja se DIREKTNO nakon "IF: Trade Selected?" node-a.
 ═══════════════════════════════════════════════════════════════
 """
 
+import os
 import hashlib
 import hmac
 import time
@@ -375,8 +376,8 @@ try:
         "skip_leverage": True,  # Promijeniti na False ako želiš da postavlja leverage
 
         # API credentials from environment
-        "api_key": $env.BYBIT_API_KEY or $env.bybit_api_key,
-        "api_secret": $env.BYBIT_API_SECRET or $env.bybit_api_secret
+        "api_key": os.getenv('BYBIT_API_KEY') or os.getenv('bybit_api_key'),
+        "api_secret": os.getenv('BYBIT_API_SECRET') or os.getenv('bybit_api_secret')
     }
 
     print("✅ Transformation complete!")

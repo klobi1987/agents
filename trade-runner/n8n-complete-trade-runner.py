@@ -595,13 +595,15 @@ def execute_trade(trade_signal: Dict) -> Dict:
 # ═══════════════════════════════════════════════════════════════
 
 try:
+    import os
+
     # Get input from previous n8n node
     input_data = $input.item.json
 
     # Add API credentials from environment variables
     # Note: Adjust variable names if yours are different
-    input_data["api_key"] = $env.BYBIT_API_KEY or $env.bybit_api_key
-    input_data["api_secret"] = $env.BYBIT_API_SECRET or $env.bybit_api_secret
+    input_data["api_key"] = os.getenv('BYBIT_API_KEY') or os.getenv('bybit_api_key')
+    input_data["api_secret"] = os.getenv('BYBIT_API_SECRET') or os.getenv('bybit_api_secret')
 
     # Execute trade
     result = execute_trade(input_data)

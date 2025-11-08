@@ -323,10 +323,12 @@ def check_and_move_to_breakeven(api_key: str, api_secret: str) -> List[Dict]:
 # ═══════════════════════════════════════════════════════════════
 
 try:
+    import os
+
     # Get API credentials from environment variables
     # Supports both UPPERCASE and lowercase variable names
-    api_key = $env.BYBIT_API_KEY or $env.bybit_api_key
-    api_secret = $env.BYBIT_API_SECRET or $env.bybit_api_secret
+    api_key = os.getenv('BYBIT_API_KEY') or os.getenv('bybit_api_key')
+    api_secret = os.getenv('BYBIT_API_SECRET') or os.getenv('bybit_api_secret')
 
     # Run break even check
     results = check_and_move_to_breakeven(api_key, api_secret)
