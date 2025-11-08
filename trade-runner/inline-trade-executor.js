@@ -481,7 +481,8 @@ async function executeTrade(tradeSignal) {
 // n8n CODE NODE ENTRY POINT
 // ═══════════════════════════════════════════════════════════════
 
-(async () => {
+// Main execution function
+async function executeTradeWorkflow() {
     try {
         // Get input from Trade Selector
         const selectorOutput = items[0].json;
@@ -531,4 +532,7 @@ async function executeTrade(tradeSignal) {
             }
         }];
     }
-})();
+}
+
+// Execute and return Promise (n8n will handle it)
+return executeTradeWorkflow();
