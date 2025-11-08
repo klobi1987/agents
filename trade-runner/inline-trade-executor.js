@@ -26,6 +26,33 @@ const RECV_WINDOW = 5000;
 // PURE JS HMAC SHA256 (bez require - radi u n8n sandbox!)
 // ═══════════════════════════════════════════════════════════════
 
+// Pure JS UTF-8 encoder (bez TextEncoder - radi u n8n sandbox!)
+function stringToUtf8Bytes(str) {
+    const bytes = [];
+    for (let i = 0; i < str.length; i++) {
+        let charCode = str.charCodeAt(i);
+        if (charCode < 0x80) {
+            bytes.push(charCode);
+        } else if (charCode < 0x800) {
+            bytes.push(0xc0 | (charCode >> 6));
+            bytes.push(0x80 | (charCode & 0x3f));
+        } else if (charCode < 0xd800 || charCode >= 0xe000) {
+            bytes.push(0xe0 | (charCode >> 12));
+            bytes.push(0x80 | ((charCode >> 6) & 0x3f));
+            bytes.push(0x80 | (charCode & 0x3f));
+        } else {
+            // Surrogate pair
+            i++;
+            charCode = 0x10000 + (((charCode & 0x3ff) << 10) | (str.charCodeAt(i) & 0x3ff));
+            bytes.push(0xf0 | (charCode >> 18));
+            bytes.push(0x80 | ((charCode >> 12) & 0x3f));
+            bytes.push(0x80 | ((charCode >> 6) & 0x3f));
+            bytes.push(0x80 | (charCode & 0x3f));
+        }
+    }
+    return new Uint8Array(bytes);
+}
+
 function sha256(message) {
     // Pure JavaScript SHA256 implementation
     function rotr(n, x) { return (x >>> n) | (x << (32 - n)); }
@@ -49,8 +76,7 @@ function sha256(message) {
     ];
 
     // Convert string to UTF-8 bytes
-    const utf8Encode = new TextEncoder();
-    const msgBytes = utf8Encode.encode(message);
+    const msgBytes = stringToUtf8Bytes(message);
     const msgLen = msgBytes.length;
     const bitLen = msgLen * 8;
 
@@ -123,10 +149,9 @@ function sha256(message) {
 
 function hmacSha256(key, message) {
     const blockSize = 64; // SHA256 block size in bytes
-    const utf8Encode = new TextEncoder();
 
     // Convert key to bytes
-    let keyBytes = utf8Encode.encode(key);
+    let keyBytes = stringToUtf8Bytes(key);
 
     // Keys longer than blockSize are shortened
     if (keyBytes.length > blockSize) {
